@@ -1,8 +1,10 @@
 require "original-uri/version"
 
+require 'uri'
+
 module OriginalURI
   def self.chase(uri)
-    self.chase_url(uri.to_s)
+    URI.parse self.chase_url(uri.to_s)
   end
 
   def self.chase_url(url)
@@ -13,13 +15,15 @@ module OriginalURI
     when %r!https?://gunosy\.com/articles/.*!
       self.chase_gunosy_url url
     when %r!https?://web\.hackadoll\.com/n/.*!
-      'http://kanmsu.com/archives/45453'
+      self.chase_hackadoll_url url
+    else
+      url
     end
   end
 end
 
 module URI
-  def self.original
-    # ToDo: canonicalize and chase URI.
+  def original
+    uri = OriginalURI.chase(self)
   end
 end

@@ -10,7 +10,8 @@ class OriginalURITest < Minitest::Test
     url  = 'https://web.smartnews.com/articles/2Z4euf3qHYJ'
     ourl = 'https://moneyforward.com/media/second-life/66971/'
 
-    result = OriginalURI.chase(URI.parse url)
+    uri = URI.parse url
+    result = uri.original
 
     assert result, ourl
   end
@@ -19,7 +20,8 @@ class OriginalURITest < Minitest::Test
     url  = 'https://gunosy.com/articles/RbaP7?s=s'
     ourl = 'https://getnavi.jp/digital/289215/'
 
-    result = OriginalURI.chase(URI.parse url)
+    uri = URI.parse url
+    result = uri.original
 
     assert result, ourl
   end
@@ -28,7 +30,18 @@ class OriginalURITest < Minitest::Test
     url  = 'https://web.hackadoll.com/n/8naoC'
     ourl = 'http://kanmsu.com/archives/45453'
 
-    result = OriginalURI.chase(URI.parse url)
+    uri = URI.parse url
+    result = uri.original
+
+    assert result, ourl
+  end
+
+  def test_chase_other_uri
+    url  = 'https://www.example.com/'
+    ourl = 'https://www.example.com/'
+
+    uri = URI.parse url
+    result = uri.original
 
     assert result, ourl
   end

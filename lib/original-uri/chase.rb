@@ -15,6 +15,17 @@ module OriginalURI
     doc = Nokogiri::HTML.parse(body)
     doc.xpath("//div[@class='article_cushion_link gtm-click']/a").first[:href]
   end
+
+  def self.chase_hackadoll_url(url)
+    uri = URI.parse url
+    body = Net::HTTP.get uri
+    doc = Nokogiri::HTML.parse(body)
+    uri += doc.xpath("//a[@class='btn-read-more anim-hover']").first[:href]
+
+    # 302
+    response = Net::HTTP.get_response uri
+    response['location']
+  end
   
 end
 
