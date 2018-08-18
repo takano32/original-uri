@@ -13,7 +13,16 @@ module OriginalURI
   def self.chase_gunosy_url(url)
     body = Net::HTTP.get(URI.parse url)
     doc = Nokogiri::HTML.parse(body)
-    doc.xpath("//div[@class='article_cushion_link gtm-click']/a").first[:href]
+    begin
+      xpath = "//div[@class='article_media clearfix gtm-click']/ul/li/p/a"
+      doc.xpath(xpath).first[:href].gsub(/\?ref=gns/, '')
+    rescue
+      begin
+        doc.xpath("//div[@class='article_cushion_link gtm-click']/a").first[:href]
+      rescue
+        return url
+      end
+    end
   end
 
   def self.chase_hackadoll_url(url)
