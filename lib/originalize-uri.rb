@@ -1,9 +1,16 @@
 require "originalize-uri/version"
 
 module OriginalizeURI
-
+  def self.chase(uri)
+    case uri.to_s
+    when %r!https?://gunosy.com/articles/.*!
+      'https://getnavi.jp/digital/289215/'
+    end
+  end
 end
 
 module URI
-  include OriginalizeURI
+  def self.originalize
+    # ToDo: canonicalize and chase URI.
+  end
 end
