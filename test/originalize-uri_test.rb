@@ -6,6 +6,15 @@ class OriginalizeURITest < Minitest::Test
     refute_nil ::OriginalizeURI::VERSION
   end
 
+  def test_chase_smartnews_uri
+    url  = 'https://web.smartnews.com/articles/2Z4euf3qHYJ'
+    ourl = 'https://moneyforward.com/media/second-life/66971/'
+
+    result = OriginalizeURI.chase(URI.parse url)
+
+    assert result, ourl
+  end
+
   def test_chase_gunosy_uri
     url  = 'https://gunosy.com/articles/RbaP7?s=s'
     ourl = 'https://getnavi.jp/digital/289215/'
