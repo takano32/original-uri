@@ -11,19 +11,29 @@ class OriginalURITest < Minitest::Test
     ourl = 'https://moneyforward.com/media/second-life/66971/'
 
     uri = URI.parse url
-    result = uri.original
+    result = uri.original.to_s
 
-    assert result, ourl
+    assert_equal result, ourl
   end
 
-  def test_chase_gunosy_uri
+  def test_chase_gunosy_uri1
+    url  = 'https://gunosy.com/articles/Rvn80?s=s'
+    ourl = 'https://www.gizmodo.jp/2018/08/pix_backpack.html'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
+  def test_chase_gunosy_uri2
     url  = 'https://gunosy.com/articles/RbaP7?s=s'
     ourl = 'https://getnavi.jp/digital/289215/'
 
     uri = URI.parse url
-    result = uri.original
+    result = uri.original.to_s
 
-    assert result, ourl
+    assert_equal result, ourl
   end
 
   def test_chase_hackadoll_uri
@@ -31,9 +41,9 @@ class OriginalURITest < Minitest::Test
     ourl = 'http://kanmsu.com/archives/45453'
 
     uri = URI.parse url
-    result = uri.original
+    result = uri.original.to_s
 
-    assert result, ourl
+    assert_equal result, ourl
   end
 
   def test_chase_other_uri
@@ -41,9 +51,9 @@ class OriginalURITest < Minitest::Test
     ourl = 'https://www.example.com/'
 
     uri = URI.parse url
-    result = uri.original
+    result = uri.original.to_s
 
-    assert result, ourl
+    assert_equal result, ourl
   end
 
   def test_it_does_something_useful
