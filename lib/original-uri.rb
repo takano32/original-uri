@@ -4,7 +4,11 @@ require 'uri'
 
 module OriginalURI
   def self.chase(uri)
-    URI.parse self.chase_url(uri.to_s)
+    begin
+      URI.parse self.chase_url(uri.to_s)
+    rescue
+      uri
+    end
   end
 
   def self.chase_url(url)
