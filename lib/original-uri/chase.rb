@@ -15,12 +15,17 @@ module OriginalURI
     doc = Nokogiri::HTML.parse(body)
     begin
       xpath = "//div[@class='article_media clearfix gtm-click']/ul/li/p/a"
-      doc.xpath(xpath).first[:href].gsub(/\?ref=gns/, '')
+      doc.xpath(xpath).first[:href].gsub(/\?ref=gns$/, '')
     rescue
       begin
         doc.xpath("//div[@class='article_cushion_link gtm-click']/a").first[:href]
       rescue
-        return url
+        begin
+          xpath = "//div[@class='article gtm-click']/p/a"
+          doc.xpath(xpath).first[:href].gsub(/#utm_source=gunosy&.*$/, '')
+        rescue
+          return url
+        end
       end
     end
   end

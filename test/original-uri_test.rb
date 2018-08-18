@@ -36,6 +36,16 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_chase_gunosy_uri3
+    url  = 'https://gunosy.com/articles/Rhl60?s=s'
+    ourl = 'http://nlab.itmedia.co.jp/nl/articles/1808/18/news005.html'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_chase_hackadoll_uri
     url  = 'https://web.hackadoll.com/n/8naoC'
     ourl = 'http://kanmsu.com/archives/45453'
