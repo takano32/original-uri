@@ -13,8 +13,7 @@ module OriginalURI
   def self.chase_gunosy_url(url)
     body = Net::HTTP.get(URI.parse url)
     doc = Nokogiri::HTML.parse(body)
-    p doc
-    'https://getnavi.jp/digital/289215/'
+    doc.xpath("//div[@class='article_cushion_link gtm-click']/a").first[:href]
   end
   
 end
