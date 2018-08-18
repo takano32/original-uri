@@ -1,17 +1,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "originalize-uri/version"
+require "original-uri/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "originalize-uri"
-  spec.version       = OriginalizeURI::VERSION
+  spec.name          = "original-uri"
+  spec.version       = OriginalURI::VERSION
   spec.authors       = ["TAKANO Mitsuhiro"]
   spec.email         = ["takano32@gmail.com"]
 
   spec.summary       = %q{Convert non-original URI to original one.}
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "https://github.com/takano32/originalize-uri/"
+  spec.homepage      = "https://github.com/takano32/original-uri/"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

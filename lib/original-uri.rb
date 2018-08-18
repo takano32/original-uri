@@ -1,6 +1,6 @@
-require "originalize-uri/version"
+require "original-uri/version"
 
-module OriginalizeURI
+module OriginalURI
   def self.chase(uri)
     case uri.to_s
     when %r!https?://web\.smartnews\.com/articles/.*!
@@ -14,7 +14,7 @@ module OriginalizeURI
 end
 
 module URI
-  def self.originalize
+  def self.original
     # ToDo: canonicalize and chase URI.
   end
 end
