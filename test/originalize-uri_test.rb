@@ -24,6 +24,15 @@ class OriginalizeURITest < Minitest::Test
     assert result, ourl
   end
 
+  def test_chase_hackadoll_uri
+    url  = 'https://web.hackadoll.com/n/8naoC'
+    ourl = 'http://kanmsu.com/archives/45453'
+
+    result = OriginalizeURI.chase(URI.parse url)
+
+    assert result, ourl
+  end
+
   def test_it_does_something_useful
     assert true
   end
