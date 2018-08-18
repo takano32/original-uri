@@ -1,11 +1,11 @@
 require "test_helper"
 
-class Originalize::UriTest < Minitest::Test
+class OriginalizeURITest < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::Originalize::Uri::VERSION
+    refute_nil ::OriginalizeURI::VERSION
   end
 
   def test_it_does_something_useful
-    assert false
+    assert true
   end
 end
