@@ -11,6 +11,24 @@ module OriginalURI
     end
   end
 
+  def self.canonical(uri)
+    begin
+      URI.parse self.canonical_url(uri.to_s)
+    rescue
+      uri
+    end
+  end
+
+  def self.canonical_url(url)
+    require_relative './original-uri/canonical'
+    case url
+    when %r!https?://(www\.)?amazon(\.co)?\.jp/.*!
+      self.canonical_amazon_url url
+    else
+      url
+    end
+  end
+
   def self.chase_url(url)
     require_relative './original-uri/chase'
     case url
@@ -24,10 +42,13 @@ module OriginalURI
       url
     end
   end
+
 end
 
 module URI
   def original
-    uri = OriginalURI.chase(self)
+    uri = self
+    uri = OriginalURI.chase(uri)
+    uri = OriginalURI.canonical(uri)
   end
 end

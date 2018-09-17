@@ -56,6 +56,20 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_canonical_amazon_asin1
+    url = 'https://www.amazon.co.jp/Anker-PowerPort-' +
+      '%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83' +
+      '%81%E3%83%A3%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC-' +
+      'Android%E5%90%84%E7%A8%AE%E4%BB%96%E5%AF%BE%E5%BF%9C-%E3%80%90' +
+      'PowerIQ%E6%90%AD%E8%BC%89%E3%80%91/dp/B012VOBXU8?psc=1'
+    ourl = 'https://amazon.jp/dp/B012VOBXU8'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_chase_other_uri
     url  = 'https://www.example.com/'
     ourl = 'https://www.example.com/'
