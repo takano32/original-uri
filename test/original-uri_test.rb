@@ -70,6 +70,17 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_canonical_amazon_asin2
+    url = 'https://www.amazon.co.jp/gp/product/B00UYABOQA' +
+      '?ref_=dbs_mng_calw_0&storeType=ebooks'
+    ourl = 'https://amazon.jp/dp/B00UYABOQA'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_chase_other_uri
     url  = 'https://www.example.com/'
     ourl = 'https://www.example.com/'

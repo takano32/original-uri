@@ -11,7 +11,20 @@ module OriginalURI
     body = open(uri).read
 
     doc = Nokogiri::HTML.parse(body)
-    asin = doc.css('#ASIN').last[:value]
+    asin = nil
+    begin
+      asin = doc.css('#ASIN').last[:value]
+    rescue
+      begin
+        asin = doc.css("input[name='ASIN']").last[:value]
+      rescue
+        begin
+          asin = doc.css("input[name='ASIN.0']").last[:value]
+        rescue
+        end
+      end
+    end
+    raise if asin.nil?
     "https://amazon.jp/dp/#{asin}"
   end
 end
