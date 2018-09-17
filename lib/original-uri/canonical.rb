@@ -25,7 +25,8 @@ module OriginalURI
       end
     end
     raise if asin.nil?
-    "https://amazon.jp/dp/#{asin}"
+    # "https://amazon.jp/dp/#{asin}"
+    "https://www.amazon.co.jp/dp/#{asin}"
   end
 end
 
