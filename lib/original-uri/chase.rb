@@ -5,7 +5,14 @@ require 'uri'
 
 module OriginalURI
   def self.chase_smartnews_url(url)
-    body = Net::HTTP.get(URI.parse url)
+    uri = URI.parse url
+    # 301
+    response = Net::HTTP.get_response uri
+    if response.code == '301'
+      return response['location']
+    end
+
+    body = Net::HTTP.get uri
     doc = Nokogiri::HTML.parse(body)
     doc.xpath("//section[@class='original-link']/a").first[:href]
   end
