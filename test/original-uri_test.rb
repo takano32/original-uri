@@ -62,7 +62,7 @@ class OriginalURITest < Minitest::Test
       '%81%E3%83%A3%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC-' +
       'Android%E5%90%84%E7%A8%AE%E4%BB%96%E5%AF%BE%E5%BF%9C-%E3%80%90' +
       'PowerIQ%E6%90%AD%E8%BC%89%E3%80%91/dp/B012VOBXU8?psc=1'
-    ourl = 'https://amazon.jp/dp/B012VOBXU8'
+    ourl = 'https://www.amazon.co.jp/dp/B012VOBXU8'
 
     uri = URI.parse url
     result = uri.original.to_s
@@ -73,7 +73,7 @@ class OriginalURITest < Minitest::Test
   def test_canonical_amazon_asin2
     url = 'https://www.amazon.co.jp/gp/product/B00UYABOQA' +
       '?ref_=dbs_mng_calw_0&storeType=ebooks'
-    ourl = 'https://amazon.jp/dp/B00UYABOQA'
+    ourl = 'https://www.amazon.co.jp/dp/B00UYABOQA'
 
     uri = URI.parse url
     result = uri.original.to_s
