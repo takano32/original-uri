@@ -47,14 +47,6 @@ module OriginalURI
     response = Net::HTTP.get_response uri
     response['location']
   end
-
-  def self.chase_moguravr_url(url)
-    uri = URI.parse url
-    body = Net::HTTP.get(uri)
-    doc = Nokogiri::HTML.parse(body)
-    xpath = "//div[@class='mg-article-content']/p//a"
-    doc.xpath(xpath).last[:href]
-  end
   
 end
 
