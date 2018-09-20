@@ -38,6 +38,8 @@ module OriginalURI
       self.chase_gunosy_url url
     when %r!https?://web\.hackadoll\.com/n/.*!
       self.chase_hackadoll_url url
+    when %r!https?://(www\.)?moguravr\.com/.*!
+      self.chase_moguravr_url url
     else
       url
     end

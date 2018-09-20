@@ -56,6 +56,16 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_chase_moguravr_uri
+    url  = 'https://www.moguravr.com/art-immersion-technology/'
+    ourl = 'https://prtimes.jp/main/html/rd/p/000000095.000011115.html'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_canonical_amazon_asin1
     url = 'https://www.amazon.co.jp/Anker-PowerPort-' +
       '%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83' +
