@@ -24,6 +24,8 @@ module OriginalURI
     case url
     when %r!https?://(www\.)?amazon(\.co)?\.jp/.*!
       self.canonical_amazon_url url
+    when %r!https?://(mobile\.)?twitter\.com/([0-9A-Za-z_]{1,15})/?.*!
+      self.canonical_twitter_url url
     else
       url
     end

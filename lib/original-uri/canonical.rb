@@ -28,5 +28,12 @@ module OriginalURI
     # "https://amazon.jp/dp/#{asin}"
     "https://www.amazon.co.jp/dp/#{asin}"
   end
+
+  def self.canonical_twitter_url(url)
+    url = url.sub %r!^(http://)!, 'https://'
+    url = url.sub %r!^(https?://)(mobile\.)?(twitter\.com/)!, '\1\3'
+    url = url.sub %r!^(https?://twitter.com/.*)\?s=[0-9]+$!, '\1'
+    url
+  end
 end
 
