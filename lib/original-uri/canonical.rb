@@ -5,10 +5,16 @@ require 'uri'
 
 module OriginalURI
   def self.canonical_amazon_url(url)
-    uri = URI.parse url
 
-    require 'open-uri'
-    body = open(uri).read
+    uri = URI.parse url
+    response = Net::HTTP.get_response uri
+    while response.code =~ /30[123]/
+      url = response['location']
+      uri = URI.parse url
+      response = Net::HTTP.get_response uri
+    end
+
+    body = Net::HTTP.get uri
 
     doc = Nokogiri::HTML.parse(body)
     asin = nil
