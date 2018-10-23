@@ -20,7 +20,7 @@ class OriginalURITest < Minitest::Test
     url  = 'https://lin.ee/2Kywgx0' +
       '?utm_source=line&utm_medium=share' +
       '&utm_campaign=none&share_id=CxL40300439197'
-    ourl = 'https://www.oricon.co.jp/news/2122027/full/'
+    ourl = 'http://news.line.me/issue/entertainment/f0954c2d1165'
 
     uri = URI.parse url
     result = uri.original.to_s

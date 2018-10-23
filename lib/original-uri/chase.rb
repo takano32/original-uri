@@ -51,7 +51,7 @@ module OriginalURI
       response = Net::HTTP.get_response uri
     end
     if url =~ %r!^https?://news\.line\.me/issue/.*!
-      url = self.chase_line_news_url url
+      # url = self.chase_line_news_url url
     end
     url
   end
