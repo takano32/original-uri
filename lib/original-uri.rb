@@ -40,6 +40,8 @@ module OriginalURI
       self.chase_smartnews_url url
     when %r!^https?://lin\.ee/[a-zA-Z0-9]+.*!
       self.chase_line_news_url url
+    when %r!^https?://gxyt4\.app\.goo\.gl/[a-zA-Z0-9]+$!
+      self.chase_abema_tv_url url
     when %r!^https?://gunosy\.com/articles/.*!
       self.chase_gunosy_url url
     when %r!^https?://web\.hackadoll\.com/n/.*!

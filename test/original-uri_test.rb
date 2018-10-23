@@ -28,6 +28,18 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_chase_abema_tv_url
+    url  = 'https://gxyt4.app.goo.gl/iCPH2'
+    ourl = 'https://abema.tv/channels/special-plus/slots/9NKur2EBZuLLmd'
+    # https://abema.tv/channels/special-plus/slots/9NKur2EBZuLLmd
+    # ?utm_campaign=slot_share_ln&utm_medium=social&utm_source=line
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_chase_47news_url1
     url  = 'https://www.47news.jp/news/2894740.html'
     ourl = 'https://this.kiji.is/426944380327330913'

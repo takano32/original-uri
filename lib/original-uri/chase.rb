@@ -51,6 +51,17 @@ module OriginalURI
     url
   end
 
+  def self.chase_abema_tv_url(url)
+    uri = URI.parse url
+    response = Net::HTTP.get_response uri
+    if response.code =~ /30[123]/
+      url = response['location']
+    end
+    regex = %r!(https?://abema\.tv/[^\?]+)\?utm_.*!
+    url = url.sub regex, '\1'
+    url
+  end
+
   def self.chase_gunosy_url(url)
     body = Net::HTTP.get(URI.parse url)
     doc = Nokogiri::HTML.parse(body)
