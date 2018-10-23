@@ -38,8 +38,8 @@ module OriginalURI
       self.chase_47news_url url
     when %r!^https?://web\.smartnews\.com/articles/.*!
       self.chase_smartnews_url url
-    when %r!^https?://lin\.ee/[a-zA-Z0-9]+.*!
-      self.chase_line_news_url url
+    when %r!^https?://lin\.ee[/\?].*!
+      self.chase_line_domain_url url
     when %r!^https?://gxyt4\.app\.goo\.gl[/\?].*$!
       self.chase_abema_tv_url url
     when %r!^https?://gunosy\.com/articles/.*!

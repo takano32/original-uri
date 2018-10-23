@@ -39,15 +39,36 @@ module OriginalURI
     doc.xpath("//section[@class='original-link']/a").first[:href]
   end
 
-  def self.chase_line_news_url(url)
+  def self.chase_line_domain_url(url)
     regex = %r!^(https?://lin\.ee/[a-zA-Z0-9]+)(\?utm_.+)?$!
     url = url.sub regex, '\1'
 
     uri = URI.parse url
     response = Net::HTTP.get_response uri
-    if response.code =~ /30[123]/
+    while response.code =~ /30[123]/
       url = response['location']
+      uri = URI.parse url
+      response = Net::HTTP.get_response uri
     end
+    if url =~ %r!^https?://news\.line\.me/issue/.*!
+      url = self.chase_line_news_url url
+    end
+    url
+  end
+
+  def self.chase_line_news_url(url)
+    # http://news.line.me/issue/entertainment/f0954c2d1165
+    uri = URI.parse url
+    body = Net::HTTP.get uri
+    doc = Nokogiri::HTML.parse(body)
+    url = doc.xpath("/html/body/div/doc-content/section/div/div/div/a").first[:href]
+
+    uri = URI.parse url
+    body = Net::HTTP.get uri
+    doc = Nokogiri::HTML.parse(body)
+    location = doc.xpath("/html/body/script").children.first.text
+    regex = %r!.*?location\.href = '(https?://[^'']+)';.*!m
+    url = location.sub regex, '\1'
     url
   end
 
