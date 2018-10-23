@@ -20,7 +20,10 @@ module OriginalURI
     end
 
     utm_regex = %r!\?utm_medium=social&utm_content=.+!
-    url.sub(utm_regex, '')
+    url = url.sub(utm_regex, '')
+    kyodo_regex = %r!^(https?://this\.kiji\.is/[^\?]+)\?c=[0-9]+$!
+    url = url.sub(kyodo_regex, '\1')
+    url
   end
 
   def self.chase_smartnews_url(url)

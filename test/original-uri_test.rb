@@ -18,8 +18,7 @@ class OriginalURITest < Minitest::Test
 
   def test_chase_47news_url1
     url  = 'https://www.47news.jp/news/2894740.html'
-    ourl = 'https://this.kiji.is/426944380327330913' +
-      '?c=39546741839462401'
+    ourl = 'https://this.kiji.is/426944380327330913'
 
     uri = URI.parse url
     result = uri.original.to_s
