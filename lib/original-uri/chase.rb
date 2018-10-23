@@ -13,7 +13,7 @@ module OriginalURI
     # 301
     uri = URI.parse url
     response = Net::HTTP.get_response uri
-    while response.code == '301'
+    while response.code =~ /30[123]/
       url = response['location']
       uri = URI.parse url
       response = Net::HTTP.get_response uri
@@ -30,13 +30,25 @@ module OriginalURI
     uri = URI.parse url
     # 301
     response = Net::HTTP.get_response uri
-    if response.code == '301'
+    if response.code =~ /30[123]/
       return response['location']
     end
 
     body = Net::HTTP.get uri
     doc = Nokogiri::HTML.parse(body)
     doc.xpath("//section[@class='original-link']/a").first[:href]
+  end
+
+  def self.chase_line_news_url(url)
+    regex = %r!^(https?://lin\.ee/[a-zA-Z0-9]+)(\?utm_.+)?$!
+    url = url.sub regex, '\1'
+
+    uri = URI.parse url
+    response = Net::HTTP.get_response uri
+    if response.code =~ /30[123]/
+      url = response['location']
+    end
+    url
   end
 
   def self.chase_gunosy_url(url)

@@ -36,11 +36,13 @@ module OriginalURI
     case url
     when %r!^https?://(www\.)?47news.jp/.+/[0-9]+\.html$!
       self.chase_47news_url url
-    when %r!https?://web\.smartnews\.com/articles/.*!
+    when %r!^https?://web\.smartnews\.com/articles/.*!
       self.chase_smartnews_url url
-    when %r!https?://gunosy\.com/articles/.*!
+    when %r!^https?://lin\.ee/[a-zA-Z0-9]+.*!
+      self.chase_line_news_url url
+    when %r!^https?://gunosy\.com/articles/.*!
       self.chase_gunosy_url url
-    when %r!https?://web\.hackadoll\.com/n/.*!
+    when %r!^https?://web\.hackadoll\.com/n/.*!
       self.chase_hackadoll_url url
     else
       url
