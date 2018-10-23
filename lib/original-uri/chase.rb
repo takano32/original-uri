@@ -4,6 +4,25 @@ require 'net/http'
 require 'uri'
 
 module OriginalURI
+  def self.chase_47news_url(url)
+    uri = URI.parse url
+    body = Net::HTTP.get uri
+    doc = Nokogiri::HTML.parse(body)
+    url = doc.xpath("//a[@class='read-more-button']").first[:href]
+
+    # 301
+    uri = URI.parse url
+    response = Net::HTTP.get_response uri
+    while response.code == '301'
+      url = response['location']
+      uri = URI.parse url
+      response = Net::HTTP.get_response uri
+    end
+
+    utm_regex = %r!\?utm_medium=social&utm_content=.+!
+    url.sub(utm_regex, '')
+  end
+
   def self.chase_smartnews_url(url)
     uri = URI.parse url
     # 301

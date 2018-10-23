@@ -34,6 +34,8 @@ module OriginalURI
   def self.chase_url(url)
     require_relative './original-uri/chase'
     case url
+    when %r!^https?://(www\.)?47news.jp/.+/[0-9]+\.html$!
+      self.chase_47news_url url
     when %r!https?://web\.smartnews\.com/articles/.*!
       self.chase_smartnews_url url
     when %r!https?://gunosy\.com/articles/.*!

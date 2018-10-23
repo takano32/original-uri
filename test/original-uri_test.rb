@@ -6,7 +6,7 @@ class OriginalURITest < Minitest::Test
     refute_nil ::OriginalURI::VERSION
   end
 
-  def test_chase_smartnews_uri
+  def test_chase_smartnews_url
     url  = 'https://web.smartnews.com/articles/2Z4euf3qHYJ'
     ourl = 'https://moneyforward.com/media/second-life/66971/'
 
@@ -16,7 +16,28 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
-  def test_chase_gunosy_uri1
+  def test_chase_47news_url1
+    url  = 'https://www.47news.jp/news/2894740.html'
+    ourl = 'https://this.kiji.is/426944380327330913' +
+      '?c=39546741839462401'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
+  def test_chase_47news_url2
+    url  = 'https://www.47news.jp/economics/newproduct/2897329.html'
+    ourl = 'https://www.ehime-np.co.jp/article/news201810230047'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
+  def test_chase_gunosy_url1
     url  = 'https://gunosy.com/articles/Rvn80?s=s'
     ourl = 'https://www.gizmodo.jp/2018/08/pix_backpack.html'
 
@@ -26,7 +47,7 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
-  def test_chase_gunosy_uri2
+  def test_chase_gunosy_url2
     url  = 'https://gunosy.com/articles/RbaP7?s=s'
     ourl = 'https://getnavi.jp/digital/289215/'
 
@@ -36,7 +57,7 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
-  def test_chase_gunosy_uri3
+  def test_chase_gunosy_url3
     url  = 'https://gunosy.com/articles/Rhl60?s=s'
     ourl = 'http://nlab.itmedia.co.jp/nl/articles/1808/18/news005.html'
 
@@ -46,7 +67,7 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
-  def test_chase_hackadoll_uri
+  def test_chase_hackadoll_url
     url  = 'https://web.hackadoll.com/n/8naoC'
     ourl = 'http://kanmsu.com/archives/45453'
 
@@ -101,7 +122,7 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
-  def test_chase_other_uri
+  def test_chase_other_url
     url  = 'https://www.example.com/'
     ourl = 'https://www.example.com/'
 
