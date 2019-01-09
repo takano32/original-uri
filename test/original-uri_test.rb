@@ -126,6 +126,7 @@ class OriginalURITest < Minitest::Test
   end
 
   def test_canonical_twitter_url1
+    # mobile account page
     url =  'http://mobile.twitter.com/Vegeta_Pchan?s=06'
     ourl = 'https://twitter.com/Vegeta_Pchan'
 
@@ -136,8 +137,20 @@ class OriginalURITest < Minitest::Test
   end
 
   def test_canonical_twitter_url2
+    # mobile tweet page
     url =  'http://mobile.twitter.com/Tsukumo_eX/status/1050303051750236160?s=06'
     ourl = 'https://twitter.com/Tsukumo_eX/status/1050303051750236160'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
+  def test_canonical_twitter_url3
+    # t.co
+    url =  'https://t.co/x1ahrvIRLi?amp=1'
+    ourl = 'https://techable.jp/archives/85837'
 
     uri = URI.parse url
     result = uri.original.to_s
