@@ -4,8 +4,19 @@ require 'net/http'
 require 'uri'
 
 module OriginalURI
-  def self.canonical_amazon_url(url)
+  def self.canonical_link(url)
+    uri = URI.parse url
+    body = Net::HTTP.get uri
+    doc = Nokogiri::HTML.parse(body)
+    begin
+      url = doc.xpath('//link[@rel="canonical"]').first[:href]
+    rescue
+      url = uri.to_s
+    end
+    url
+  end
 
+  def self.canonical_amazon_url(url)
     uri = URI.parse url
     response = Net::HTTP.get_response uri
     while response.code =~ /30[123]/
@@ -14,21 +25,10 @@ module OriginalURI
       response = Net::HTTP.get_response uri
     end
 
-    body = Net::HTTP.get uri
-
-    doc = Nokogiri::HTML.parse(body)
+    url = canonical_link(url)
     asin = nil
-    begin
-      asin = doc.css('#ASIN').last[:value]
-    rescue
-      begin
-        asin = doc.css("input[name='ASIN']").last[:value]
-      rescue
-        begin
-          asin = doc.css("input[name='ASIN.0']").last[:value]
-        rescue
-        end
-      end
+    if url =~ %r!.*/dp/([0-9A-Z]+)$!
+      asin = $1
     end
     raise if asin.nil?
     # "https://amazon.jp/dp/#{asin}"
