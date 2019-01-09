@@ -4,6 +4,18 @@ require 'net/http'
 require 'uri'
 
 module OriginalURI
+  def self.chase_t_co_url(url)
+    # 301
+    uri = URI.parse url
+    response = Net::HTTP.get_response uri
+    while response.code =~ /30[123]/
+      url = response['location']
+      uri = URI.parse url
+      response = Net::HTTP.get_response uri
+    end
+    url
+  end
+
   def self.chase_47news_url(url)
     uri = URI.parse url
     body = Net::HTTP.get uri

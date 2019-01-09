@@ -21,11 +21,12 @@ module OriginalURI
 
   def self.canonical_url(url)
     require_relative './original-uri/canonical'
+    url = canonical_link(url)
     case url
     when %r!https?://(www\.)?amazon(\.co)?\.jp/.*!
-      self.canonical_amazon_url url
+      canonical_amazon_url url
     when %r!https?://(mobile\.)?twitter\.com/([0-9A-Za-z_]{1,15})/?.*!
-      self.canonical_twitter_url url
+      canonical_twitter_url url
     else
       url
     end
@@ -34,18 +35,20 @@ module OriginalURI
   def self.chase_url(url)
     require_relative './original-uri/chase'
     case url
-    when %r!^https?://(www\.)?47news.jp/.+/[0-9]+\.html$!
-      self.chase_47news_url url
+    when %r!^https?://(www\.)?t\.co/.*!
+      chase_t_co_url url
+    when %r!^https?://(www\.)?47news\.jp/.+/[0-9]+\.html$!
+      chase_47news_url url
     when %r!^https?://web\.smartnews\.com/articles/.*!
-      self.chase_smartnews_url url
+      chase_smartnews_url url
     when %r!^https?://lin\.ee[/\?].*!
-      self.chase_line_domain_url url
+      chase_line_domain_url url
     when %r!^https?://gxyt4\.app\.goo\.gl[/\?].*$!
-      self.chase_abema_tv_url url
+      chase_abema_tv_url url
     when %r!^https?://gunosy\.com/articles/.*!
-      self.chase_gunosy_url url
+      chase_gunosy_url url
     when %r!^https?://web\.hackadoll\.com/n/.*!
-      self.chase_hackadoll_url url
+      chase_hackadoll_url url
     else
       url
     end
