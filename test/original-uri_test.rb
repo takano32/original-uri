@@ -158,6 +158,16 @@ class OriginalURITest < Minitest::Test
     assert_equal result, ourl
   end
 
+  def test_canonical_relative_rel
+    url =  'https://www.barks.jp/news/?id=1000163490'
+    ourl = 'https://www.barks.jp/news/?id=1000163490'
+
+    uri = URI.parse url
+    result = uri.original.to_s
+
+    assert_equal result, ourl
+  end
+
   def test_chase_other_url
     url  = 'https://www.example.com/'
     ourl = 'https://www.example.com/'

@@ -10,6 +10,8 @@ module OriginalURI
     doc = Nokogiri::HTML.parse(body)
     begin
       url = doc.xpath('//link[@rel="canonical"]').first[:href]
+      uri += url
+      url = uri.to_s
     rescue
       url = uri.to_s
     end
